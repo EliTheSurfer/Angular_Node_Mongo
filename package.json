@@ -2,7 +2,7 @@
   "name": "SportsApp",
   "version": "1.0.0",
   "scripts": {
-    "open-playground": "open-cli http://localhost:4200",
+    "open-playground": "open-cli http://localhost:4200/documentation",
     "install": "npm install --prefix api && npm install --prefix client",
     "start": "concurrently \"npm start --prefix api\" \"npm start --prefix client\" \"npm run open-playground\""
   },
