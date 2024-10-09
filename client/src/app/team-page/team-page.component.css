@@ -1,0 +1,49 @@
+.team-page {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.team-header {
+  padding: 20px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f5f5f5;
+}
+
+.team-header h2 {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.player-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+app-player-card {
+  width: 100%;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.blue-back-button {
+  color: #1976d2;
+  margin-right: 20px;
+}
+
+.blue-back-button mat-icon {
+  color: #1976d2;
+}

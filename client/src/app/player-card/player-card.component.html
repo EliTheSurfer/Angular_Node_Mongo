@@ -1,0 +1,13 @@
+<mat-card class="player-card">
+  <div class="player-card-content">
+    <div class="player-photo-container">
+      <img [src]="player.photo" [alt]="player.name" class="player-photo">
+    </div>
+    <div class="player-info">
+      <h2 class="player-name">{{ player.name }}</h2>
+      <p class="player-detail">{{ player.position }}</p>
+      <p class="player-detail">{{ player.birthdate | date }}</p>
+      <p class="player-detail">{{ player.price }}</p>
+    </div>
+  </div>
+</mat-card>

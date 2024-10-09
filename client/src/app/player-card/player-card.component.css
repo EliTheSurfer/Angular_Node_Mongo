@@ -1,0 +1,52 @@
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+.player-card {
+  width: 100%;
+  background-color: #e0e0e0;
+  padding: 0;
+}
+
+.player-card-content {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+}
+
+.player-photo-container {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.player-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-info {
+  flex-grow: 1;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.player-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin: 0 0 8px 0;
+}
+
+.player-detail {
+  font-size: 14px;
+  color: #333;
+  margin: 2px 0;
+  font-style: italic;
+}
