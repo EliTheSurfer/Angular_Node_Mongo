@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button *ngIf="showBackButton" (click)="goBack()" class="blue-back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>{{ showBackButton ? 'Back' : title }}</span>
+</mat-toolbar>
+
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
