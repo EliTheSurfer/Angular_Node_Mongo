@@ -1,0 +1,7 @@
+<div *ngIf="teams.length > 0" class="team-container">
+  <div class="team-grid">
+    <div *ngFor="let team of teams" class="team-logo-container" (click)="onTeamClick(team.id)">
+      <img [src]="team.logo" [alt]="team.name + ' logo'" class="team-logo">
+    </div>
+  </div>
+</div>
