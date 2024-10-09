@@ -1,0 +1,23 @@
+<div class="league-container">
+  <h2 class="mat-h2">Leagues</h2>
+
+  <mat-card>
+    <mat-card-content>
+      <form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Search leagues</mat-label>
+          <input type="text" placeholder="Start typing a league name" aria-label="Search" matInput
+            [formControl]="leagueControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+            (optionSelected)="onLeagueSelect($event.option.value)">
+            <mat-option *ngFor="let league of filteredLeagues | async" [value]="league">
+              {{league.name}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <app-team-list [leagueId]="selectedLeagueId"></app-team-list>
+</div>

@@ -1,0 +1,36 @@
+.league-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-h2 {
+  color: #3f51b5;
+  margin-bottom: 20px;
+}
+
+mat-card {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  min-width: 500px;
+}
+
+@media (max-width: 600px) {
+  .league-container {
+    padding: 10px;
+  }
+
+  table {
+    min-width: 300px;
+  }
+}
