@@ -1,3 +1,4 @@
+import { ObjectId } from "bson";
 import { WithId } from "mongodb";
 
 export type DbLeague = WithId<{
@@ -36,3 +37,8 @@ export interface DbPlayer {
   };
 }
 
+export interface dbQuerier {
+  getPlayersFromTeam: (teamId: ObjectId) => Promise<DbPlayer[]>;
+  getTeamsFromLeague: (leagueId: ObjectId) => Promise<DbTeam[]>;
+  getAllLeagues: () => Promise<DbLeague[]>;
+}

@@ -1,15 +1,16 @@
 import { describe, it, expect, vi } from 'vitest';
-import { fetchPlayersFromTeam } from '../../../src/domain/team/fetcher';
+import { fetchPlayers } from '../../../src/domain/team/fetcher';
 import { ObjectId } from 'bson';
-import { dbPlayerFactory } from '../../../src/frameworks/mongoDB/factories';
+import { dbPlayerFactory } from '../../../src/frameworks/database/factories';
 import { FastifyInstance } from 'fastify';
 
 describe('fetchPlayersFromTeam', () => {
   it('should return players from a team', async () => {
     // given
     const { fastifyInstanceMock, teamId } = setup();
+
     // when
-    const players = await fetchPlayersFromTeam(fastifyInstanceMock, teamId);
+    const players = await fetchPlayers(fastifyInstanceMock).fromThisTeam(teamId);
 
     // then
     expect(players.length).toBeGreaterThan(0);

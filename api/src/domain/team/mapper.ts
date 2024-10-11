@@ -1,5 +1,5 @@
 import { Player } from "../../entities/player";
-import { DbPlayer } from "../../frameworks/mongoDB/types";
+import { DbPlayer } from "../../frameworks/database/types";
 
 
 export const dbPlayerToEntity = (player: DbPlayer): Player => ({

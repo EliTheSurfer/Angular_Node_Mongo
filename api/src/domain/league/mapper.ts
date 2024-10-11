@@ -1,6 +1,6 @@
 import { League } from "../../entities/league";
 import { Team } from "../../entities/team";
-import { DbLeague, DbTeam } from "../../frameworks/mongoDB/types";
+import { DbLeague, DbTeam } from "../../frameworks/database/types";
 
 export const dbLeagueToEntity = (league: DbLeague): League => ({
   _id: league._id.toString(),

@@ -5,6 +5,8 @@ import { LeagueSchema } from '../entities/league';
 import { Type } from '@sinclair/typebox';
 import { TeamSchema } from '../entities/team';
 import { leaguesExample, teamsExample } from '../entities/examples';
+
+
 export default async function (fastify: FastifyInstance) {
   fastify
     .get('/leagues', {
@@ -17,11 +19,28 @@ export default async function (fastify: FastifyInstance) {
             items: LeagueSchema,
             example: leaguesExample
           }
+          ,
+          500: {
+            type: 'object',
+            properties: {
+              statusCode: { type: 'number', example: 500 },
+              error: { type: 'string', example: 'Internal Server Error' },
+              message: { type: 'string', example: 'An unexpected error occurred' }
+            }
+          }
         }
       }
     }, async (_request, reply) => {
-      const leagues = await getAllLeagues(fastify);
-      return Http.OK(reply, { value: leagues });
+      try {
+        const leagues = await getAllLeagues(fastify);
+        return Http.OK(reply, {
+          value: leagues,
+          cache: { duration: cacheControlDuration.ONE_DAY },
+        });
+      } catch (error) {
+        fastify.log.error(error);
+        return Http.INTERNAL_SERVER_ERROR(reply);
+      }
     })
     .get<{ Params: { id: string } }>('/leagues/:id',
       {
@@ -39,14 +58,18 @@ export default async function (fastify: FastifyInstance) {
             }
           }
         }
-      }
-      ,
+      },
       async (request, reply) => {
         const { id } = request.params;
         const teams = await getLeagueTeams(fastify, id);
-        return Http.OK(reply, {
-          value: teams,
-          cache: { duration: cacheControlDuration.ONE_HOUR },
-        });
+        try {
+          return Http.OK(reply, {
+            value: teams,
+            cache: { duration: cacheControlDuration.ONE_HOUR },
+          });
+        } catch (error) {
+          fastify.log.error(error);
+          return Http.INTERNAL_SERVER_ERROR(reply);
+        }
       });
 }

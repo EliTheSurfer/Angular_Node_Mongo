@@ -1,31 +1,12 @@
 import { FastifyInstance } from "fastify";
 import { ObjectId } from "bson";
-import { DbTeam, DbPlayer } from "../../frameworks/mongoDB/types";
-import { TABLES } from "../../frameworks/mongoDB/utils";
+import { mongoDbQuerier } from "../../frameworks/database/querier";
+import { DbPlayer } from "../../frameworks/database/types";
 
-export const fetchPlayersFromTeam = async (fastify: FastifyInstance, teamObjectId: ObjectId): Promise<DbPlayer[]> => {
-  const result = await fastify.mongo.db?.collection<DbTeam>(TABLES.TEAMS).aggregate([
-    { $match: { _id: teamObjectId } },
-    {
-      $lookup: {
-        from: TABLES.PLAYERS,
-        localField: TABLES.PLAYERS,
-        foreignField: "_id",
-        as: "playerDetails"
-      }
-    },
-    { $unwind: "$playerDetails" },
-    {
-      $project: {
-        _id: "$playerDetails._id",
-        name: "$playerDetails.name",
-        photo: "$playerDetails.thumbnail",
-        position: "$playerDetails.position",
-        birthdate: "$playerDetails.born",
-        signin: "$playerDetails.signin"
-      }
+export const fetchPlayers = (fastify: FastifyInstance) => {
+  return {
+    fromThisTeam: (teamObjectId: ObjectId): Promise<DbPlayer[]> => {
+      return mongoDbQuerier(fastify).getPlayersFromTeam(teamObjectId);
     }
-  ]).toArray() as DbPlayer[];
-
-  return result ?? [];
+  };
 };

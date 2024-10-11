@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { getAllLeagues, getLeagueTeams } from '../../../src/domain/league/useCases';
-import { dbLeagueFactory, dbLeagueWithTeamsFactory, leagueId } from '../../../src/frameworks/mongoDB/factories';
+import { dbLeagueFactory, dbLeagueWithTeamsFactory, leagueId } from '../../../src/frameworks/database/factories';
 import { FastifyInstance } from 'fastify';
 
 describe('getAllLeagues', () => {

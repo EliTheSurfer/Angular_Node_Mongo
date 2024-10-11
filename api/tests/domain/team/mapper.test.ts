@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { dbPlayerFactory } from '../../../src/frameworks/mongoDB/factories';
+import { dbPlayerFactory } from '../../../src/frameworks/database/factories';
 import { dbPlayerToEntity } from '../../../src/domain/team/mapper';
 
 describe('dbTeamToEntity Mapper', () => {

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "lint": "eslint '**/*.ts",
+    "lint": "eslint \"**/*.ts\"",
     "test": "vitest"
   },
   "keywords": [],

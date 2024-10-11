@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { getPlayersFromATeam } from '../../../src/domain/team/useCases';
-import { dbPlayerFactory, leagueId } from '../../../src/frameworks/mongoDB/factories';
+import { dbPlayerFactory, leagueId } from '../../../src/frameworks/database/factories';
 import { FastifyInstance } from 'fastify';
 
 describe('getPlayersFromATeam', () => {

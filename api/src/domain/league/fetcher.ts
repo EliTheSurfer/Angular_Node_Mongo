@@ -1,24 +1,16 @@
 import { FastifyInstance } from "fastify";
 import { ObjectId } from "bson";
-import { DbTeam, DbLeagueWithTeams, DbLeague } from "../../frameworks/mongoDB/types";
-import { TABLES } from "../../frameworks/mongoDB/utils";
+import { DbTeam, DbLeague } from "../../frameworks/database/types";
+import { mongoDbQuerier } from "../../frameworks/database/querier";
 
-export const fetchTeamsFromLeague = async (fastify: FastifyInstance, leagueObjectId: ObjectId): Promise<DbTeam[]> => {
-  const result = await fastify.mongo.db?.collection<DbLeagueWithTeams>(TABLES.LEAGUES).aggregate([
-    { $match: { _id: leagueObjectId } },
-    {
-      $lookup: {
-        from: TABLES.TEAMS,
-        localField: TABLES.TEAMS,
-        foreignField: '_id',
-        as: 'teamDetails'
-      }
+export const fetchTeams = (fastify: FastifyInstance) => {
+  return {
+    fromThisLeague: (leagueObjectId: ObjectId): Promise<DbTeam[]> => {
+      return mongoDbQuerier(fastify).getTeamsFromLeague(leagueObjectId);
     }
-  ]).toArray();
-
-  return result?.[0]?.teamDetails ?? [];
+  };
 };
 
 export const fetchAllLeagues = async (fastify: FastifyInstance): Promise<DbLeague[]> => {
-  return fastify.mongo.db?.collection<DbLeague>(TABLES.LEAGUES).find().toArray() ?? [];
+  return mongoDbQuerier(fastify).getAllLeagues();
 };

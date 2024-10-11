@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { dbLeagueToEntity } from "../../../src/domain/league/mapper";
-import { dbLeagueFactory } from "../../../src/frameworks/mongoDB/factories";
+import { dbLeagueFactory } from "../../../src/frameworks/database/factories";
 
 describe('dbLeagueToEntity Mapper', () => {
   it('should map the db league to an entity', () => {

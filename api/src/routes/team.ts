@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import { Http } from '../frameworks/http/utils';
-import { leaguesExample } from '../entities/examples';
+import { cacheControlDuration, Http } from '../frameworks/http/utils';
+import { playersExample } from '../entities/examples';
 import { PlayerSchema } from '../entities/player';
 import { getPlayersFromATeam } from '../domain/team/useCases';
 
@@ -15,13 +15,29 @@ export default async function (fastify: FastifyInstance) {
           200: {
             type: 'array',
             items: PlayerSchema,
-            example: leaguesExample
+            example: playersExample
+          },
+          500: {
+            type: 'object',
+            properties: {
+              statusCode: { type: 'number', example: 500 },
+              error: { type: 'string', example: 'Internal Server Error' },
+              message: { type: 'string', example: 'An unexpected error occurred' }
+            }
           }
         }
       }
     }, async (request, reply) => {
-      const { id } = request.params;
-      const players = await getPlayersFromATeam(fastify, id);
-      return Http.OK(reply, { value: players });
+      try {
+        const { id } = request.params;
+        const players = await getPlayersFromATeam(fastify, id);
+        return Http.OK(reply, {
+          value: players,
+          cache: { duration: cacheControlDuration.FIVE_MINUTES },
+        });
+      } catch (error) {
+        fastify.log.error(error);
+        return Http.INTERNAL_SERVER_ERROR(reply);
+      }
     });
 }
